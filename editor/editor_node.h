@@ -204,6 +204,8 @@ private:
 
 		SET_VIDEO_DRIVER_SAVE_AND_RESTART,
 
+		TEST_PRINT,
+
 		GLOBAL_NEW_WINDOW,
 		GLOBAL_SCENE,
 
@@ -268,6 +270,7 @@ private:
 	MenuButton *debug_menu;
 	MenuButton *settings_menu;
 	MenuButton *help_menu;
+	MenuButton *test_menu;
 	PopupMenu *tool_menu;
 	ToolButton *export_button;
 	ToolButton *prev_scene;

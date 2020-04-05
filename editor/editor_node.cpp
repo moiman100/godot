@@ -441,6 +441,7 @@ void EditorNode::_notification(int p_what) {
 			debug_menu->add_style_override("hover", gui_base->get_stylebox("MenuHover", "EditorStyles"));
 			settings_menu->add_style_override("hover", gui_base->get_stylebox("MenuHover", "EditorStyles"));
 			help_menu->add_style_override("hover", gui_base->get_stylebox("MenuHover", "EditorStyles"));
+			test_menu->add_style_override("hover", gui_base->get_stylebox("MenuHover", "EditorStyles"));
 
 			if (EDITOR_GET("interface/scene_tabs/resize_if_many_tabs")) {
 				scene_tabs->set_min_width(int(EDITOR_GET("interface/scene_tabs/minimum_width")) * EDSCALE);
@@ -2688,6 +2689,10 @@ void EditorNode::_menu_option_confirm(int p_option, bool p_confirmed) {
 			save_all_scenes();
 			restart_editor();
 		} break;
+
+		case TEST_PRINT: {
+			print_line("You just pressed a menu item.");
+		}
 	}
 }
 
@@ -6300,6 +6305,19 @@ EditorNode::EditorNode() {
 	p->add_icon_shortcut(gui_base->get_icon("Instance", "EditorIcons"), ED_SHORTCUT("editor/community", TTR("Community")), HELP_COMMUNITY);
 	p->add_separator();
 	p->add_icon_shortcut(gui_base->get_icon("Godot", "EditorIcons"), ED_SHORTCUT("editor/about", TTR("About")), HELP_ABOUT);
+
+	// Test Menu
+	test_menu = memnew(MenuButton);
+	test_menu->set_flat(false);
+	test_menu->set_switch_on_hover(true);
+	test_menu->set_text(TTR("Test"));
+	test_menu->add_style_override("hover", gui_base->get_stylebox("MenuHover", "EditorStyles"));
+	left_menu_hb->add_child(test_menu);
+
+	p = test_menu->get_popup();
+	p->set_hide_on_window_lose_focus(true);
+	p->connect("id_pressed", this, "_menu_option");
+	p->add_shortcut(ED_SHORTCUT("editor/test_print", TTR("Test print")), TEST_PRINT);
 
 	HBoxContainer *play_hb = memnew(HBoxContainer);
 	menu_hb->add_child(play_hb);
